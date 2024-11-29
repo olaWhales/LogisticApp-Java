@@ -1,8 +1,9 @@
 package org.example.services;
 
-import org.springframework.stereotype.Service;
+import org.example.dto.request.CreateTrackingLogRequest;
+import org.example.dto.respond.CreateTrackingLogRespond;
 
 
 public interface TrackingLogService {
-
+    CreateTrackingLogRespond createTrackingLogRespond(CreateTrackingLogRequest createTrackingLogRequest);
 }

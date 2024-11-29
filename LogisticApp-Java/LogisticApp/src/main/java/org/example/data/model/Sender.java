@@ -10,5 +10,5 @@ public class Sender {
     @Id
     private String id ;
     private String phoneNumber ;
-    private String name ;
+    private String fullName;
 }

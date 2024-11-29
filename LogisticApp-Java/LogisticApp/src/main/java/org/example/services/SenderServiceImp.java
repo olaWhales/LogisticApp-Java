@@ -13,13 +13,13 @@ public class SenderServiceImp implements SenderService {
     SenderRepository senderRepository;
 
     @Override
-    public CreateSenderRespond respond(CreateSenderRequest request) {
+    public CreateSenderRespond createSender(CreateSenderRequest request) {
         CreateSenderRespond createSenderRespond = new CreateSenderRespond();
         Sender sender = new Sender();
-        sender.setName(request.getSenderName());
+        sender.setFullName(request.getSenderName());
         sender.setPhoneNumber(request.getPhoneNumber());
         senderRepository.save(sender);
-        createSenderRespond.setMesssage("Sender register successfully");
+        createSenderRespond.setMessage("Sender register successfully");
         return createSenderRespond;
     }
 }

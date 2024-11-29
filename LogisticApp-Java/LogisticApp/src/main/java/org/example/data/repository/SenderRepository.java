@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SenderRepository extends MongoRepository<Sender, String> {
+//    Sender findByName(String fullName);
+
 }

@@ -13,11 +13,11 @@ public class ReceiverServiceImp implements ReceiverService {
     ReceiverRepository receiverRepository;
 
     @Override
-    public CreateReceiverRespond respond(CreateReceiverRequest request) {
+    public CreateReceiverRespond createReceiver(CreateReceiverRequest request) {
         CreateReceiverRespond receiverRespond = new CreateReceiverRespond();
         Receiver receiver = new Receiver();
         receiver.setPhone(request.getPhoneNumber());
-        receiver.setFullName(String.valueOf(request.getReceiverName()));
+        receiver.setFullName(request.getReceiverName());
         receiver.setAddress(request.getReceiverAddress());
         receiverRepository.save(receiver);
         receiverRespond.setMessage("Receiver register successfully");

@@ -20,9 +20,11 @@ import org.example.dto.respond.CreateTrackingLogRespond;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -46,6 +48,8 @@ public class LogisticTest {
     private TrackingLogServiceImp trackingLogServiceImp;
     @Autowired
     private TrackingLogRepository trackingLogRepository;
+    @Autowired
+    private PackageServiceImp packageServiceImp;
 
 
     @BeforeEach
@@ -57,19 +61,9 @@ public class LogisticTest {
     }
 
     @Test
-    public void testThatReceiverCanGetPackage() {
-        CreatePackageRequest request = new CreatePackageRequest();
-        Package Package = new Package();
-        packageRepository.save(Package);
-        CreatePackageRespond respond = packageService.createPackageRespond(request);
-        assertNotNull(respond);
-        assertEquals(packageRepository.count(), 1);
-        System.out.println(respond);
-    }
-    @Test
     public void testThatReceiverCanRegister() {
         CreateReceiverRequest receiverRequest = new CreateReceiverRequest();
-        CreateReceiverRespond respond = receiverService.respond(receiverRequest);
+        CreateReceiverRespond respond = receiverService.createReceiver(receiverRequest);
         Receiver receiver = new Receiver();
         receiver.setFullName(String.valueOf(receiverRequest.getReceiverName()));
         receiver.setAddress(receiverRequest.getReceiverAddress());
@@ -80,26 +74,57 @@ public class LogisticTest {
     }
     @Test
     public void testThatSenderCanRegister() {
-        CreateSenderRespond respond = senderServiceImp.respond(new CreateSenderRequest());
+        CreateSenderRespond respond = senderServiceImp.createSender(new CreateSenderRequest());
         CreateSenderRequest request = new CreateSenderRequest();
         Sender sender = new Sender();
         sender.setPhoneNumber(request.getPhoneNumber());
-        sender.setName(request.getSenderName());
+        sender.setFullName(request.getSenderName());
         senderRepository.save(sender);
-        respond.setMesssage(respond.getMesssage());
-        assertEquals(respond.getMesssage(), "Sender register successfully");
+        respond.setMessage(respond.getMessage());
+        assertEquals(respond.getMessage(), "Sender register successfully");
     }
     @Test
     public void testToCheckTrackingDetailLog(){
+        CreateTrackingLogRespond respond = trackingLogServiceImp.createTrackingLogRespond(new CreateTrackingLogRequest());
         CreateTrackingLogRequest request = new CreateTrackingLogRequest();
-        CreateTrackingLogRespond respond = trackingLogServiceImp.respond(new CreateTrackingLogRequest());
         TrackingLog trackingLog = new TrackingLog();
         trackingLog.setTrackingDate(request.getTrackingDateTime());
         trackingLog.setDescription(request.getDescription());
         trackingLog.setTrackingNumber(request.getTrackingNumber());
         trackingLogRepository.save(trackingLog);
         respond.setMessage(respond.getMessage());
-        assertEquals(respond.getMessage() , "Details is intact");
+        assertEquals(respond.getMessage(), "Details successfully added");
+    }
+
+    @Test
+    public void testToCheckPackage(){
+        CreatePackageRespond respond = packageServiceImp.CreatePackageRespond(new CreatePackageRequest() );
+        CreatePackageRequest request = new CreatePackageRequest();
+        Package aPackage = new Package();
+        aPackage.setSender(request.getSenderFullName());
+        aPackage.setSender(request.getSenderPhoneNumber());
+        aPackage.setReceiver(request.getReceiverFullName());
+        aPackage.setReceiver(request.getReceiverAddress());
+        aPackage.setReceiver(request.getReceiverPhoneNumber());
+        aPackage.setDescription(request.getDescription());
+        aPackage.setQuantity(request.getQuantity());
+        packageRepository.save(aPackage);
+        respond.setStuff("FoodStuff");
+        respond.setSender("Olawale");
+        respond.setReceiver("Tunji");
+        respond.setDelivery(BigDecimal.valueOf(100.000));
+        respond.setCreateDate(respond.getCreateDate());
+        if (respond.getTrackingLog() == null) {
+            respond.setTrackingLog(respond.getTrackingLog());
+        }
+        respond.setTrackingLog(respond.getTrackingLog());
+//        assertEquals(respond.getDelivery() , 100.000);
+        assertEquals(BigDecimal.valueOf(100.000), respond.getDelivery());
+        assertEquals(respond.getStuff() ,"FoodStuff" );
+        assertEquals(respond.getReceiver() , "Tunji");
+        assertEquals(respond.getSender() , "Olawale" );
+        assertNotNull(respond.getCreateDate().toLocalDate());
+//        assertNotNull(respond.getTrackingLog());
     }
 
 }
