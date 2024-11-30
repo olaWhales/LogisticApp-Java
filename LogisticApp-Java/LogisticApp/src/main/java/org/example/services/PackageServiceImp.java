@@ -52,32 +52,20 @@ public class PackageServiceImp implements PackageService {
 
         List<TrackingLog> trackingLogs = trackingLogRepository.findAll();
 
-        //      Map the request to a Sender object and save it
         Sender sender = new Sender();
         sender.setFullName(String.valueOf(createPackageRequest.getSenderFullName()));
         sender.setPhoneNumber(String.valueOf(createPackageRequest.getSenderPhoneNumber()));
-//             senderRepository.save(sender);
 
-//              Map the request to a Receiver object and save it
         Receiver receiver = new Receiver();
         receiver.setFullName(String.valueOf(createPackageRequest.getReceiverFullName()));
         receiver.setAddress(String.valueOf(createPackageRequest.getReceiverAddress()));
 //             receiverRepository.save(receiver);
 
-//              Map the request to a Package object and save it
         Package aPackage = new Package();
         aPackage.setDescription(createPackageRequest.getDescription());
         aPackage.setQuantity(createPackageRequest.getQuantity());
 //             packageRepository.save(aPackage);
 
-//        TrackingLog trackingLog = map(trackingLogService.createTrackingLogRespond(CreateTrackingLogRequest));
-//        CreateTrackingLogRequest createTrackingLogRequest = map(trackingLog);
-//        TrackingLog tracking= map(trackingLogService.createTrackingLogRespond(createTrackingLogRequest))
-//        trackingLog.setTrackingNumber(trackingLog.getTrackingNumber());
-//        trackingLog.setTrackingDate(trackingLog.getTrackingDate());
-
-
-//              Create and return the response
         CreatePackageRespond response = new CreatePackageRespond();
         response.setSender(sender.getId());
         response.setReceiver(receiver.getId());
@@ -89,6 +77,3 @@ public class PackageServiceImp implements PackageService {
     }
 }
 
-//    private TrackingLog map(CreateTrackingLogRespond trackingLogRespond) {
-//    }
-//}

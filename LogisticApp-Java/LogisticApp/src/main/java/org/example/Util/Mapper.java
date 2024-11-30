@@ -8,8 +8,6 @@ import org.example.dto.request.CreatePackageRequest;
 import org.example.dto.request.CreateReceiverRequest;
 import org.example.dto.request.CreateSenderRequest;
 import org.example.dto.request.CreateTrackingLogRequest;
-import org.example.dto.respond.CreatePackageRespond;
-
 
 public class Mapper {
 
@@ -38,19 +36,5 @@ public class Mapper {
         createPackageRequest.setQuantity(aPackage.getQuantity());
         return createPackageRequest;
     }
-
-//    public static Package Map(CreatePackageRespond createPackageRespond) {
-//        TrackingLog trackingLog = new TrackingLog();
-//        trackingLog.setTrackingNumber(createPackageRespond.getTrackingNumber());
-//        trackingLog.setTrackingDate(createPackageRespond.getCreateDate());
-//        Sender sender = new Sender();
-//        sender.setFullName(createPackageRespond.getSender());
-//        sender.setPhoneNumber(createPackageRespond.);
-//        Receiver receiver = new Receiver();
-//        receiver.setFullName(createPackageRespond.getReceiver());
-//        Package aPackage = new Package();
-//        aPackage.setQuantity(createPackageRespond.getSender());
-//
-//    }
 
 }

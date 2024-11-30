@@ -54,7 +54,7 @@ public class LogisticTest {
 
     @BeforeEach
     void cleanUp() {
-        packageRepository.deleteAll();
+//        packageRepository.deleteAll();
         receiverRepository.deleteAll();
         senderRepository.deleteAll();
         trackingLogRepository.deleteAll();
@@ -120,7 +120,7 @@ public class LogisticTest {
         respond.setTrackingLog(respond.getTrackingLog());
 //        assertEquals(respond.getDelivery() , 100.000);
         assertEquals(BigDecimal.valueOf(100.000), respond.getDelivery());
-        assertEquals(respond.getStuff() ,"FoodStuff" );
+        assertEquals(respond.getStuff(),"FoodStuff" );
         assertEquals(respond.getReceiver() , "Tunji");
         assertEquals(respond.getSender() , "Olawale" );
         assertNotNull(respond.getCreateDate().toLocalDate());
